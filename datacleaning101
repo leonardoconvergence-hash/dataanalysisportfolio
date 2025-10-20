@@ -36,3 +36,30 @@ for column in missing_data.columns.values.tolist():
     print (missing_data[column].value_counts())
     print("")    
 
+#substitute the NaN value for the average from normalized-loss
+
+#So we have 205 rows, and in some of the the isnull fuction returned True which means we have missing data in it
+#normalized-losses have 41, num-of-doors have 2, bore has 4,stroke have 4, horsepower have 2,peak-rpm have 2 and price have 4
+
+#Use replace with average to substitute the NaN to the average of the data.
+
+#First we find the average of the column
+
+avg_norm_loss = df["normalized-losses"].astype("float").mean(axis=0)
+print("Average of normalized-losses:", avg_norm_loss)
+
+df["normalized-losses"].replace(np.nan, avg_norm_loss, inplace=True)
+
+#repeat the process to every single column to replace the missing data with the average of the data from the column
+
+avg_bore=df['bore'].astype('float').mean(axis=0)
+df["bore"].replace(np.nan, avg_bore, inplace=True)
+
+avg_stroke=df['stroke'].astype('float').mean(axis=0)
+df['stroke'].replace(np.nan, avg_stroke, inplace=True)
+
+avg_horsepower = df['horsepower'].astype('float').mean(axis=0)
+df['horsepower'].replace(np.nan, avg_horsepower, inplace=True)
+
+avg_peakrpm=df['peak-rpm'].astype('float').mean(axis=0)
+df['peak-rpm'].replace(np.nan, avg_peakrpm, inplace=True)
