@@ -1,6 +1,7 @@
 #import the core libraries to do the data analysis of the dataset
 
 import pandas as pd
+import numpy as np
 import matplotlib.pylab as plt
 
 #read the dataset from the webpage
@@ -17,4 +18,21 @@ headers = ["symboling","normalized-losses","make","fuel-type","aspiration", "num
 
 df = pd.read_csv(filename, names = headers)
 df.head()
+
+
+# replace "?" the missing value to NaN
+df.replace("?", np.nan, inplace = True)
+df.head(5)
+
+#Now we already know that we have NaN values in the dataset to take care
+
+#lets see how many NaN we will need to substitute or replace and how to proceed
+
+
+missing_data = df.isnull()
+
+for column in missing_data.columns.values.tolist():
+    print(column)
+    print (missing_data[column].value_counts())
+    print("")    
 
